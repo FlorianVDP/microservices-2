@@ -2,6 +2,8 @@ const express = require('express');
 const app = express()
 const port = 8080;
 const cors = require("cors");
+const router = express.Router()
+const routes = require("./src/routes/index.routes")(router,{});
 
 const corsOptions = {
     origin: `http://localhost:${port}`
@@ -9,7 +11,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-require("./src/routes/index.routes")(app);
+app.use('/api', routes)
+
 app.listen(port, async () => {
     console.log(`http://localhost:${port}/`);
 });
