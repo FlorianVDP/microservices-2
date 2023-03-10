@@ -1,9 +1,7 @@
 const fetch = require('node-fetch')
 
 exports.postSupply = async (req, res) => {
-    let {supplyId, products} = req.query
-    products = JSON.parse(products)
-    supplyId = parseInt(supplyId)
+    let {supplyId, products} = req.body
     const getCatalog = await fetch(`${process.env.CATALOG}/products`, {method: "GET"})
         .then(response => response.json())
         .catch(err => console.error(err))
