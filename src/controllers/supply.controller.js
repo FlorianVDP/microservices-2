@@ -13,7 +13,7 @@ exports.postSupply = async (req, res) => {
             {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
-                body: `{"productId":"${productId}","quantity":${quantity},"status":"${status}"}`
+                body: JSON.stringify({productId, quantity, status})
             }
         )
     }
@@ -22,7 +22,6 @@ exports.postSupply = async (req, res) => {
         products.forEach((product, index) => {
             getCatalog.forEach(async (productCat, indexCat) => {
                 if (product.ean === productCat.ean) {
-                    // Update stock
                     updateProductStock(productCat["_id"], product.quantity, "Supply")
                     res.status(204)
                     res.send()
@@ -31,5 +30,7 @@ exports.postSupply = async (req, res) => {
                 }
             })
         })
+    } else {
+
     }
 }
