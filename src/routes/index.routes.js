@@ -1,6 +1,6 @@
 module.exports = (app) => {
     const ping = require('../controllers/ping.controller')
-    const supply = require ('../controllers/supply.controller')
+    const supply = require('../controllers/supply.controller')
 
     app.get('/', (req, res) => {
         res.send('Hello World!')

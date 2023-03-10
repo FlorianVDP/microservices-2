@@ -1,9 +1,35 @@
 const fetch = require('node-fetch')
 
 exports.postSupply = async (req, res) => {
-    const {supplyId, products} = req.query
+    let {supplyId, products} = req.query
+    products = JSON.parse(products)
+    supplyId = parseInt(supplyId)
     const getCatalog = await fetch(`${process.env.CATALOG}/products`, {method: "GET"})
         .then(response => response.json())
         .catch(err => console.error(err))
-    res.json(getCatalog)
+
+    async function updateProductStock(productId, quantity, status) {
+        return await fetch(`${process.env.STOCK}/stock/${productId}/movement`,
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: `{"productId":"${productId}","quantity":${quantity},"status":"${status}"}`
+            }
+        )
+    }
+
+    if (!!products.length && !!getCatalog.length) {
+        products.forEach((product, index) => {
+            getCatalog.forEach(async (productCat, indexCat) => {
+                if (product.ean === productCat.ean) {
+                    // Update stock
+                    updateProductStock(productCat["_id"], product.quantity, "Supply")
+                    res.status(204)
+                    res.send()
+                } else {
+                    // Create product
+                }
+            })
+        })
+    }
 }
