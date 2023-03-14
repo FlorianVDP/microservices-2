@@ -1,6 +1,12 @@
 {
   "version": 2,
   "buildCommand": "build",
+  "builds": [
+    {
+      "src": "dist/index.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
