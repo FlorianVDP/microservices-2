@@ -25,9 +25,20 @@ function postSupply(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let { supplyId, products } = req.body;
         const getCatalog = yield (0, node_fetch_1.default)(`${process.env.CATALOG}/products`, { method: "GET" })
-            .then(response => response.json())
-            .then(response2 => response2)
-            .catch(err => console.error(err));
+            .then((response) => {
+            console.log('response', response);
+            return response.json();
+        })
+            .then((response2) => response2)
+            .catch((err) => console.error("getCatalogError", err));
+        console.log('getCatalog', getCatalog);
+        function getCatalogTest() {
+            return __awaiter(this, void 0, void 0, function* () {
+                yield (0, node_fetch_1.default)(`${process.env.CATALOG}/products`, { method: "GET" });
+            });
+        }
+        getCatalogTest()
+            .then(res => console.log('res', res));
         function updateProductStock(productId, quantity, status) {
             return __awaiter(this, void 0, void 0, function* () {
                 return yield (0, node_fetch_1.default)(`${process.env.STOCK}/stock/${productId}/movement`, {
@@ -46,7 +57,7 @@ function postSupply(req, res) {
                 });
             });
         }
-        if (!!products.length) {
+        if (!!products.length && getCatalog) {
             products.forEach((product) => {
                 if (getCatalog.some(productCat => productCat.ean === product.ean)) {
                     const productCat = getCatalog.find(productCat => productCat.ean === product.ean);
@@ -81,7 +92,6 @@ function postSupply(req, res) {
 exports.postSupply = postSupply;
 function getSupplySummary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("good");
         res.status(201);
         res.json(data);
     });

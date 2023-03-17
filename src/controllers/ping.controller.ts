@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import {Request, Response} from 'express';
 
 export async function getPong(req: Request, res: Response) {
     res.status(201)

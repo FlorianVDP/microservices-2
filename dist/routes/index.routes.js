@@ -1,10 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.routes = void 0;
-const express_1 = require("express");
+const express_1 = __importDefault(require("express"));
 const supply_controller_1 = require("../controllers/supply.controller");
 const ping_controller_1 = require("../controllers/ping.controller");
-exports.routes = (0, express_1.Router)();
+exports.routes = (0, express_1.default)();
 exports.routes.get('/', (req, res) => {
     res.status(202);
     res.json({

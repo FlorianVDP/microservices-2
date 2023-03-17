@@ -1,8 +1,8 @@
-import {Request, Response, Router} from "express";
+import Router, {Request, Response} from "express";
 import {getSupplySummary, postSupply} from "../controllers/supply.controller";
 import {getPong} from "../controllers/ping.controller";
 
-export const routes: Router = Router()
+export const routes = Router()
 
 routes.get('/', (req: Request, res: Response) => {
     res.status(202)

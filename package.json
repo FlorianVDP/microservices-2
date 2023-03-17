@@ -2,13 +2,10 @@
   "name": "microservices",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon src/index.ts",
-    "build": "tsc",
-    "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js",
+    "build": "tsc --watch"
   },
   "keywords": [],
   "author": "",
