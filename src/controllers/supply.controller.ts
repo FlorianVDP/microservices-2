@@ -13,7 +13,7 @@ const data: SupplySummaryDto[] = [
 export async function postSupply(req: Request, res: Response): Promise<void> {
     let {supplyId, products}: SupplyInputDto = req.body
 
-    const getCatalog: any[] = await fetch(`${process.env.CATALOG}/products`, {method: "GET"})
+    const getCatalog: any[] = await fetch(`http://microservices.tp.rjqu8633.odns.fr/api/products`, {method: "GET"})
         .then((response: any) => {
             console.log('response', response)
             return response.json()
@@ -24,14 +24,14 @@ export async function postSupply(req: Request, res: Response): Promise<void> {
     console.log('getCatalog', getCatalog)
 
     async function getCatalogTest() {
-        await fetch(`${process.env.CATALOG}/products`, {method: "GET"})
+        await fetch(`http://microservices.tp.rjqu8633.odns.fr/api/products`, {method: "GET"})
     }
 
     getCatalogTest()
         .then(res => console.log('res', res))
 
     async function updateProductStock(productId: string, quantity: number, status: 'Supply' | 'Reserve' | 'Removal'): Promise<any> {
-        return await fetch(`${process.env.STOCK}/stock/${productId}/movement`,
+        return await fetch(`https://microservices.valentin-magry.fr/api/stock/${productId}/movement`,
             {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
@@ -41,7 +41,7 @@ export async function postSupply(req: Request, res: Response): Promise<void> {
     }
 
     async function createProduct(ean: string, name: string, description: string, price: number): Promise<any> {
-        return await fetch(`${process.env.STOCK}/product/`,
+        return await fetch(`https://microservices.valentin-magry.fr/api/product/`,
             {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
